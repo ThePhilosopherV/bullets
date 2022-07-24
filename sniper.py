@@ -92,15 +92,25 @@ elif tl[1] != '00':
         print(tl[1]+'m'+tl[2]+'s')
 
 num = len(targets)
+c=0
 if webflag and num:
-    
-    
+
     print('\n<<< browsing IPs >>>>')
     
-    for ip in targets:
+    while 1:
         cunts=int(input('How many IPs you want to browse ('+str(num)+' IP<s> left): '))
+        if cunts > num :
+            print('Number greater than IPs left')
+            continue 
+        elif cunts <= 0:
+            print('Number must be a positive')
+            continue
         for i in range(cunts):
-            os.system(webarg+" "+ip)
+            os.system(webarg+" "+targets[c])
+            c+=1
+      
         num -= cunts
-            
+        if num == 0:
+            quit()
+
 
