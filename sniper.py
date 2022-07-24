@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 
-import socket, threading,sys,ipaddress,datetime
+import socket, threading,sys,ipaddress,datetime,os
 
 def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
-        
+
+
+
+targets=[]
 def TCP_connect(ip, port, delay):
     #print(ip)
     TCPsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -15,6 +18,8 @@ def TCP_connect(ip, port, delay):
     r=TCPsock.connect_ex((ip, port))
     if r==0:
         print(ip+':'+str(port))
+        targets.append(ip+':'+str(port))
+        
 
 
 
@@ -39,19 +44,26 @@ def scan_ports(iplist, delay,port):
                 print()
                 quit('CTRL+C signal')
 
-
-
 def main():
+    global webflag
+    webflag=0
     netip=sys.argv[1]
     port = int(sys.argv[2])
     nthread = int(sys.argv[3])
+    try:
+        global webarg
+        webarg = sys.argv[4]
+        
+        webflag=1
+    except:
+        pass
     
     ips = [str(ip) for ip in ipaddress.IPv4Network(netip)]
-    print('number of targets: '+str(len(ips)))
+    print('number of targets: '+str(len(ips))+'\n')
     
     iplist = list(chunks(ips,nthread))
     
-    delay = 2   
+    delay = 3   
     scan_ports(iplist, delay,port)
 
 
@@ -60,6 +72,7 @@ main()
 t2= datetime.datetime.now().replace(microsecond=0)
 
 tl=str(t2-t1).split(':')
+print('\nNumber of positive targets: '+str(len(targets)))
 print("time elapsed: ",end='')
 if tl[0] == '0' and tl[1]=='00':
     print(tl[2]+'s')
@@ -69,4 +82,15 @@ elif tl[0] != '0':
 elif tl[1] != '00':
         print(tl[1]+'m'+tl[2]+'s')
 
+num = len(targets)
+if webflag and num:
     
+    
+    print('\n<<< browsing IPs >>>>')
+    
+    for ip in targets:
+        cunts=int(input('How many IPs you want to browse ('+str(num)+' IP<s> left): '))
+        for i in range(cunts):
+            os.system(webarg+" "+ip)
+        num -= cunts
+            
