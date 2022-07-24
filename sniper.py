@@ -43,8 +43,17 @@ def scan_ports(iplist, delay,port):
             except KeyboardInterrupt:
                 print()
                 quit('CTRL+C signal')
+help= """Usage:
 
+./sniper <networkAddress/CIDR> <Port> <NumberOfThreads> [browser]
+
+[browser] :browser name is optinal, aslo activates IPs browsing; make sure [browser] is callable from any directory.
+
+Example: ./sniper.py 196.217.254.0/24 8080 200 firefox """
 def main():
+    if len(sys.argv)==1:
+        print(help)
+        quit()
     global webflag
     webflag=0
     netip=sys.argv[1]
@@ -94,3 +103,4 @@ if webflag and num:
             os.system(webarg+" "+ip)
         num -= cunts
             
+
