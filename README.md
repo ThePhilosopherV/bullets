@@ -1,4 +1,4 @@
-# An internet scanner
+# General internet scanner
 Usage:
 ./sniper <networkAddress/CIDR> <PORT> <NumberOfThreads>  [browser]
 
