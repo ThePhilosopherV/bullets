@@ -1,6 +1,6 @@
 # General internet scanner
 Usage:
-./sniper  <networkAddress/CIDR>  <PORT>  <NumberOfThreads>  [browser] 
+./sniper  <networkAddress/CIDR>  <PortNumber>  <NumberOfThreads>  [browser] 
 
 [browser] :browser name and it's optinal, aslo activates IPs browsing; make sure [browser] is callable from any directory.
 
