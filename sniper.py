@@ -91,9 +91,11 @@ help= """Usage:
 
 <Country code> : Country code represented in two alphabets,type ./sniper --countries for more info
 
-[browser] :browser name is optinal, aslo activates IPs browsing; make sure [browser] is callable from any directory.
+[browser] :browser name is optinal, it activates IPs browsing; make sure [browser] is callable from any directory.
 
-Example: ./sniper.py 196.217.254.0/24 8080 200 firefox """
+Example: ./sniper.py 196.217.254.0/24 8080 200 firefox
+         ./sniper.py us 8080 200 firefox 
+         ./sniper.py  196.217.254.0/24 80 100"""
 def main():
     
     if len(sys.argv)==1:
