@@ -1,6 +1,6 @@
 ![alt text](https://wp-media.patheos.com/blogs/sites/766/2017/03/the-four-horsemen.jpg)
 
-       # Bullets => A General internet scanner
+       Bullets => A General internet scanner
        Usage:
 
       ./sniper <networkAddress/CIDR>/<Country code> <Port> <NumberOfThreads> [browser]
