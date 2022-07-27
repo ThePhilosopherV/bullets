@@ -3,14 +3,14 @@
        Bullets => A General internet scanner
        Usage:
 
-      ./sniper <networkAddress/CIDR>/<Country code> <Port> <NumberOfThreads> [browser]
+      ./bullets.py <networkAddress/CIDR>/<Country code> <Port> <NumberOfThreads> [browser]
 
       <Country code> : Country code represented in two alphabets,type ./sniper --countries for more info
 
       [browser] :browser name is optinal, it activates IPs browsing; make sure [browser] is callable from any directory.
       
-      Examples: ./sniper.py 196.217.254.0/24 8080 200 firefox
-                ./sniper.py us 8080 200 firefox 
-                ./sniper.py  196.217.254.0/24 80 100
+      Examples: ./bullets.py 196.217.254.0/24 8080 200 firefox
+                ./bullets.py us 8080 200 firefox 
+                ./bullets.py  196.217.254.0/24 80 100
         
 
