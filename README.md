@@ -12,5 +12,6 @@
       Examples: ./bullets.py 196.217.254.0/24 8080 200 firefox
                 ./bullets.py us 8080 200 firefox 
                 ./bullets.py  196.217.254.0/24 80 100
+                ./bullets.py us 8080 200
         
 
