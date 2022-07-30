@@ -52,7 +52,7 @@ def chunks(lst, n):
         yield lst[i:i + n]
 
 def sshcheck(ip):
-    print('ssh')
+    
     client = paramiko.client.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     users = ['root','admin','cisco'] #,'user','oracle']
