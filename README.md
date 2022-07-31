@@ -7,7 +7,7 @@
 
        <Country code> : Country code represented in two alphabets,type ./sniper --countries for more info
 
-       [browser] :browser name is optinal, it activates IPs browsing; make sure [browser] is callable from any directory.
+       [browser] :browser name is optional, it activates IPs browsing; make sure [browser] is callable from any directory.
        [brute]   :ssh dictionary attack
 
        Examples: ./bullets.py 196.217.254.0/24 8080 200 firefox
